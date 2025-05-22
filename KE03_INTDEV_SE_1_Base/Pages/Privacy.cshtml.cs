@@ -1,19 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccessLayer;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
-namespace KE03_INTDEV_SE_1_Base.Pages
+namespace Webshop.Pages
 {
     public class PrivacyModel : PageModel
     {
         private readonly ILogger<PrivacyModel> _logger;
 
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        public PrivacyModel(ILogger<PrivacyModel> logger, MatrixIncDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public void OnGet()
+        private readonly MatrixIncDbContext _context;
+
+        public List<string> Categories { get; set; } = new();
+
+        public async Task OnGetAsync()
         {
+            Categories = await _context.Categories
+                 .Select(p => p.Name)
+                 .Distinct()
+                 .OrderBy(p => p)
+                 .ToListAsync();
+
+            ViewData["Categories"] = Categories;
         }
     }
 }

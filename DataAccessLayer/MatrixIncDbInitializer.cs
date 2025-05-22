@@ -92,9 +92,10 @@ namespace DataAccessLayer
 
             if (!context.FeaturedProducts.Any())
             {
+                //Dit zou eventueel nog hebben gekunt met informatie van de producten ophalen uit de DB, hier heb ik het dan over de prijs en hoeveelheid, maar deze functionaliteit is al meer dan hoefde.
                 var featured = new FeaturedProduct[]
                 {
-                    new FeaturedProduct
+                    new FeaturedProduct 
                     {
                         Name = "Nebuchadnezzar",
                         ImagePath = "/images/products/nebuchadnezzar.jpg",
@@ -103,10 +104,10 @@ namespace DataAccessLayer
                     },
                     new FeaturedProduct
                     {
-                        Name = "Diepgroefkogellagers",
-                        ImagePath = "/images/products/Diepgroefkogellagers-small.png",
-                        Price = 2.99m,
-                        Unit = "25 stuk"
+                        Name = "Jack-in Chair",
+                        ImagePath = "/images/products/jack-in chair.jpg",
+                        Price = 500.50m,
+                        Unit = "stuk"
                     }
                 };
                 context.FeaturedProducts.AddRange(featured);
