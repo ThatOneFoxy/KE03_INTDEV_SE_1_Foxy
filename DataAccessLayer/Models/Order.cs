@@ -19,6 +19,7 @@ namespace DataAccessLayer.Models
         public decimal ShippingCost { get; set; }
         public string PaymentMethod { get; set; } = "Onbekend";
 
+        public string? ShippingAddress { get; set; }
 
         public List<OrderLine> OrderLines { get; set; } = new();
     }

@@ -7,7 +7,12 @@
 <h2>Stap 2: Controleer je bestelling</h2>
 
 <p><strong>Naam:</strong> @Model.CheckoutInfo.Name</p>
-<p><strong>Adres:</strong> @Model.CheckoutInfo.Address</p>
+
+@if (!string.IsNullOrWhiteSpace(Model.CheckoutInfo.Address) && Model.CheckoutInfo.DeliveryMethod == "Thuisbezorgd")
+{
+    <p><strong>Adres:</strong> @Model.CheckoutInfo.Address</p>
+}
+
 <p><strong>Bezorgmethode:</strong> @Model.CheckoutInfo.DeliveryMethod</p>
 <p><strong>Betaalmethode:</strong> @Model.CheckoutInfo.PaymentMethod</p>
 
