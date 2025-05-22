@@ -15,6 +15,7 @@ namespace DataAccessLayer
         public DbSet<Part> Parts { get; set; }
         public DbSet<FeaturedProduct> FeaturedProducts { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<OrderLine> OrderLines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,9 +27,15 @@ namespace DataAccessLayer
                 .HasForeignKey(o => o.CustomerId)
                 .IsRequired();
 
-            modelBuilder.Entity<Product>()
-                .HasMany(p => p.Orders)
-                .WithMany(o => o.Products);
+            modelBuilder.Entity<OrderLine>()
+                .HasOne(ol => ol.Order)
+                .WithMany(o => o.OrderLines)
+                .HasForeignKey(ol => ol.OrderId);
+
+            modelBuilder.Entity<OrderLine>()
+                .HasOne(ol => ol.Product)
+                .WithMany()
+                .HasForeignKey(ol => ol.ProductId);
 
             modelBuilder.Entity<Part>()
                 .HasMany(p => p.Products)

@@ -24,10 +24,10 @@ namespace DataAccessLayer
 
                 var orders = new Order[]
                 {
-                    new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-01-01")},
-                    new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-02-01")},
-                    new Order { Customer = customers[1], OrderDate = DateTime.Parse("2021-02-01")},
-                    new Order { Customer = customers[2], OrderDate = DateTime.Parse("2021-03-01")}
+                    new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-01-01"), DeliveryMethod = "Afhalen", ShippingCost = 4.99m, PaymentMethod = "iDEAL" },
+                    new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-02-01"), DeliveryMethod = "Bezorgen", ShippingCost = 4.99m, PaymentMethod = "Creditcard" },
+                    new Order { Customer = customers[1], OrderDate = DateTime.Parse("2021-02-01"), DeliveryMethod = "Afhalen", ShippingCost = 0, PaymentMethod = "iDEAL" },
+                    new Order { Customer = customers[2], OrderDate = DateTime.Parse("2021-03-01"), DeliveryMethod = "Drone", ShippingCost = 9.99m, PaymentMethod = "PayPal" }
                 };
                 context.Orders.AddRange(orders);
             }
@@ -42,7 +42,7 @@ namespace DataAccessLayer
                     new Category { Name = "Wapens" }
                 };
                 context.Categories.AddRange(categories);
-                context.SaveChanges(); // Categories moeten eerst opgeslagen worden :/
+                context.SaveChanges();
             }
             else
             {
@@ -92,10 +92,9 @@ namespace DataAccessLayer
 
             if (!context.FeaturedProducts.Any())
             {
-                //Dit zou eventueel nog hebben gekunt met informatie van de producten ophalen uit de DB, hier heb ik het dan over de prijs en hoeveelheid, maar deze functionaliteit is al meer dan hoefde.
                 var featured = new FeaturedProduct[]
                 {
-                    new FeaturedProduct 
+                    new FeaturedProduct
                     {
                         Name = "Nebuchadnezzar",
                         ImagePath = "/images/products/nebuchadnezzar.jpg",

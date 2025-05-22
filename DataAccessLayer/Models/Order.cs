@@ -10,13 +10,17 @@ namespace DataAccessLayer.Models
     public class Order
     {
         public int Id { get; set; }
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
 
         public DateTime OrderDate { get; set; }
 
-        public int CustomerId { get; set; }
-        
-        public Customer Customer { get; set; } = null!;
+        public string DeliveryMethod { get; set; } = "Onbekend";
+        public decimal ShippingCost { get; set; }
+        public string PaymentMethod { get; set; } = "Onbekend";
 
-        public ICollection<Product> Products { get; } = new List<Product>();
+
+        public List<OrderLine> OrderLines { get; set; } = new();
     }
+
 }

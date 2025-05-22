@@ -1,0 +1,38 @@
+﻿@page
+@model Webshop.Pages.OrderPages.CheckoutReviewModel
+@{
+    ViewData["Title"] = "Stap 2: Controleer je bestelling";
+}
+
+<h2>Stap 2: Controleer je bestelling</h2>
+
+<p><strong>Naam:</strong> @Model.CheckoutInfo.Name</p>
+<p><strong>Adres:</strong> @Model.CheckoutInfo.Address</p>
+<p><strong>Bezorgmethode:</strong> @Model.CheckoutInfo.DeliveryMethod</p>
+<p><strong>Betaalmethode:</strong> @Model.CheckoutInfo.PaymentMethod</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Aantal</th>
+            <th>Prijs</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CartItems)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Quantity</td>
+                <td>@($"€{(item.Price * item.Quantity):0.00}")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Totaal: €@Model.Total.ToString("0.00")</h4>
+
+<form method="post">
+    <button type="submit" class="btn btn-success">Bevestig & Plaats Bestelling</button>
+</form>
