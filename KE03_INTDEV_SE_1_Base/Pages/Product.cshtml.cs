@@ -18,12 +18,22 @@ namespace Webshop.Pages
 
         public int CartCount { get; set; }
 
+        public List<string> Categories { get; set; } = new();
+
         public async Task<IActionResult> OnGetAsync()
         {
             Product = await _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.Parts)
                 .FirstOrDefaultAsync(p => p.Id == Id);
+
+            Categories = await _context.Categories
+                .Select(p => p.Name)
+                .Distinct()
+                .OrderBy(p => p)
+                .ToListAsync();
+
+            ViewData["Categories"] = Categories;
 
             if (Product == null)
                 return NotFound();

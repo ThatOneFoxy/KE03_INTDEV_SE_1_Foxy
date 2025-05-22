@@ -9,7 +9,7 @@
 </head>
 
 <div class="container py-4">
-    <a asp-page="/Index" class="btn btn-tertiary mb-3">← Terug</a>
+    <a asp-page="/Index" class="btn btn-outline-tertiary mb-3">← Terug</a>
 
     <div class="row">
         <div class="col-md-4">
@@ -59,11 +59,6 @@
                         }
                     </ul>
                 </div>
-            }
-
-            @if (Model.Product?.Category is not null)
-            {
-                <p class="text-muted">Categorie: <strong>@Model.Product.Category.Name</strong></p>
             }
         </div>
     </div>
