@@ -6,6 +6,12 @@
     decimal verzendkosten = 0.99m;
     decimal subtotaal = cart.Sum(i => i.Price * i.Quantity);
     decimal totaal = subtotaal + verzendkosten;
+    <style>
+        .emptycart {
+            background-color: #F2B5B4;
+            border-color: #D28B8A;
+        }
+    </style>
 }
 
 <div class="container py-4">
@@ -13,7 +19,7 @@
 
     @if (!cart.Any())
     {
-        <div class="alert alert-info">Je winkelwagen is leeg.</div>
+        <div class="alert emptycart">Je winkelwagen is leeg.</div>
     }
     else
     {
