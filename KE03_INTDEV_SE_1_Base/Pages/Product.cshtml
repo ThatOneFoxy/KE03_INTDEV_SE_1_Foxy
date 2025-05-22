@@ -1,0 +1,70 @@
+﻿@page
+@model Webshop.Pages.ProductModel
+@{
+    ViewData["Title"] = Model.Product?.Name ?? "Product";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<div class="container py-4">
+    <a asp-page="/Index" class="btn btn-tertiary mb-3">← Terug</a>
+
+    <div class="row">
+        <div class="col-md-4">
+            <img src="/images/products/@($"{@Model.Product?.Name}.jpg")" class="img-fluid rounded border" alt="@Model.Product?.Name" />
+
+            <div class="bg-light p-3 rounded border">
+                <h6 class="text-muted mb-2">Productinformatie</h6>
+                <ul class="list-unstyled small">
+                    @if (Model.Product?.Category is not null)
+                    {
+                        <li><strong>Categorie:</strong> @Model.Product.Category.Name</li>
+                    }
+
+                    <li><strong>Voorraad:</strong> Op voorraad</li>
+                    <li><strong>Artikelnummer:</strong> @Model.Product?.Id</li>
+                    <li><strong>Materiaal:</strong> 50% Imaginarium, 25% Katoen, 25% Belgique</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <h2>@Model.Product?.Name</h2>
+            <p class="h5 text-danger">€@Model.Product?.Price.ToString("0.00")</p>
+
+            <div class="my-3">
+                <form method="post" asp-page-handler="AddToCart" asp-route-id="@Model.Product?.Id">
+                    <label for="quantity" class="form-label">Aantal:</label>
+                    <div class="input-group w-50">
+                        <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1" />
+                        <button type="submit" class="btn btn-danger">
+                            🛒 Toevoegen aan winkelwagen
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <p class="mt-3 text-muted">@Model.Product?.Description</p>
+
+            @if (Model.Product?.Parts?.Any() ?? false)
+            {
+                <div class="mt-4">
+                    <h5>Onderdelen:</h5>
+                    <ul>
+                        @foreach (var part in Model.Product.Parts)
+                        {
+                            <li><strong>@part.Name:</strong> @part.Description</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            @if (Model.Product?.Category is not null)
+            {
+                <p class="text-muted">Categorie: <strong>@Model.Product.Category.Name</strong></p>
+            }
+        </div>
+    </div>
+</div>

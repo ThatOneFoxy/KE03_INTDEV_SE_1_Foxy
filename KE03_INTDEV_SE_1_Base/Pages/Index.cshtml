@@ -22,7 +22,7 @@
             {
                 <div class="col-6 col-sm-4 col-md-3 text-center">
                     <div class="product-box p-3">
-                        <a href="/Product/Details/@product.Id" class="text-decoration-none text-dark">
+                        <a asp-page="/Product" asp-route-id="@product.Id" class="text-decoration-none text-dark">
                             <img src="@product.ImagePath" alt="@product.Name" class="img-fluid rounded-4 mb-2" />
                             <div class="fw-semibold small product-text">@product.Name</div>
                         </a>

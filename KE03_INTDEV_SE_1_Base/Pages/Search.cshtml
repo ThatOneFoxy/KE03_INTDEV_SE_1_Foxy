@@ -56,16 +56,20 @@
                                 <div class="card border-0 shadow-sm p-3">
                                     <div class="row g-3 align-items-center">
                                         <div class="col-md-3 d-flex justify-content-center">
-                                            <img src="/images/products/@($"{product.Name}.jpg")"
-                                                 class="img-fluid"
-                                                 alt="@product.Name"
-                                                 style="max-height: 150px; object-fit: contain;">
+                                            <a asp-page="/Product" asp-route-id="@product.Id">
+                                                <img src="/images/products/@($"{product.Name}.jpg")"
+                                                     class="img-fluid"
+                                                     alt="@product.Name"
+                                                     style="max-height: 150px; object-fit: contain;">
+                                            </a>
                                         </div>
 
                                         <div class="col-md-9">
                                             <div class="card-body p-0">
                                                 <small class="text-muted">Matrix Inc.</small>
-                                                <h5 class="card-title mb-2">@product.Name</h5>
+                                                <a asp-page="/Product" asp-route-id="@product.Id" class="text-decoration-none text-dark">
+                                                    <h5 class="card-title mb-2">@product.Name</h5>
+                                                </a>
                                                 <p class="text-muted mb-1">@product.Description</p>
 
                                                 @if (product.Parts.Any())

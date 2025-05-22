@@ -6,12 +6,14 @@
     decimal verzendkosten = 0.99m;
     decimal subtotaal = cart.Sum(i => i.Price * i.Quantity);
     decimal totaal = subtotaal + verzendkosten;
+    int totaalAantalProducten = cart.Sum(i => i.Quantity);
     <style>
         .emptycart {
             background-color: #F2B5B4;
             border-color: #D28B8A;
         }
     </style>
+    <link rel="stylesheet" href="~/css/site.css" />
 }
 
 <div class="container py-4">
@@ -30,7 +32,7 @@
                     <div class="card mb-3">
                         <div class="row g-0 align-items-center">
                             <div class="col-md-3">
-                                <img src="/images/products/@($"{@item.Name}.jpg")" class="img-fluid rounded-start" alt="@item.Name">
+                                <img src="/images/products/@($"{item.Name}.jpg")" class="img-fluid rounded-start" alt="@item.Name">
                             </div>
                             <div class="col-md-6">
                                 <div class="card-body">
@@ -40,7 +42,7 @@
                                     <form method="post" asp-page-handler="Update" class="d-flex gap-2 align-items-center">
                                         <input type="hidden" name="productId" value="@item.ProductId" />
                                         <input type="number" name="quantity" value="@item.Quantity" min="1" class="form-control w-50" />
-                                        <button type="submit" class="btn btn-outline-secondary">Opslaan</button>
+                                        <button type="submit" class="btn btn-outline-tertiary">Opslaan</button>
                                     </form>
                                 </div>
                             </div>
@@ -65,9 +67,20 @@
                 <div class="card border-0 shadow-sm p-3">
                     <h4 class="fw-bold">Overzicht</h4>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Producten [@cart.Count]</span>
-                            <span>€@subtotaal.ToString("0.00")</span>
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between">
+                                <span>Producten [@totaalAantalProducten]</span>
+                                <span>€@subtotaal.ToString("0.00")</span>
+                            </div>
+                            <div class="ps-3 mt-2 small text-muted">
+                                @foreach (var item in cart)
+                                {
+                                    <div class="d-flex justify-content-between">
+                                        <span>› @item.Name [@item.Quantity]</span>
+                                        <span>€@((item.Price * item.Quantity).ToString("0.00"))</span>
+                                    </div>
+                                }
+                            </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Verzendkosten</span>
