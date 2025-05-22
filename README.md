@@ -1,1 +1,3 @@
-# KE03_INTDEV_SE_1_Base
+# Opdacht SE - Webshop Matrix Inc.
+
+Deze repository served als opslag plek voor de webshop applicatie vanuit de Keuze module "Interface Development".
