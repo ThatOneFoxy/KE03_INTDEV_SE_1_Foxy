@@ -9,7 +9,7 @@
 </head>
 
 <div class="container py-4">
-    <a asp-page="/Index" class="btn btn-outline-tertiary mb-3">← Terug</a>
+    <a href="@((ViewData["PreviousUrl"] as string) ?? Url.Page("/Index"))" class="btn btn-outline-tertiary mb-3">← Terug</a>
 
     <div class="row">
         <div class="col-md-4">

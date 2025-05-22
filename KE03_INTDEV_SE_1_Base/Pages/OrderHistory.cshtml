@@ -4,51 +4,76 @@
     ViewData["Title"] = "Bestellingen";
 }
 
-<h2>Bestellingen</h2>
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <h2>Bestellingen</h2>
 
-<div class="mb-3">
-    <label for="searchTerm"><strong>Zoek een bestelling</strong></label>
-    <input type="text" id="searchTerm" name="searchTerm" class="form-control"
-           placeholder="Zoek op naam van het artikel…" value="@Model.SearchTerm"
-           oninput="this.form.submit()" />
-</div>
-
-@if (Model.FilteredOrders.Any())
-{
-    foreach (var order in Model.FilteredOrders)
-    {
-        <div class="card mb-4">
-            <div class="card-header bg-light">
-                <strong>Bestelnummer:</strong> @order.Id
-                <span class="float-end"><strong>Datum:</strong> @order.OrderDate.ToShortDateString()</span>
-            </div>
-            <div class="card-body">
-                @foreach (var line in order.OrderLines)
-                {
-                    <div class="d-flex justify-content-between border-bottom py-2">
-                        <div>
-                            <strong>@line.Product.Name</strong><br />
-                            <small>@line.Quantity x €@(line.Product.Price.ToString("0.00"))</small>
-                        </div>
-                        <div><strong>&euro;@((line.Quantity * line.Product.Price).ToString("0.00"))</strong></div>
-                    </div>
-                }
-
-                @if (!string.IsNullOrEmpty(order.ShippingAddress))
-                {
-                    <div class="mt-3">
-                        <strong>Bezorgadres:</strong> @order.ShippingAddress
-                    </div>
-                }
-            </div>
-            <div class="card-footer text-muted">
-                <strong>Betaalmethode:</strong> @order.PaymentMethod
-                <span class="float-end"><strong>Bezorging:</strong> @order.DeliveryMethod</span>
-            </div>
+    <form method="get" class="mb-3">
+        <label for="searchTerm"><strong>Zoek een bestelling</strong></label>
+        <div class="input-group">
+            <input type="text" id="searchTerm" name="searchTerm" class="form-control"
+                   placeholder="Zoek op naam van het artikel…" value="@Model.SearchTerm" />
+            <button class="btn btn-outline-tertiary" type="submit">Zoeken</button>
         </div>
+    </form>
+
+    @if (Model.FilteredOrders.Any())
+    {
+        foreach (var order in Model.FilteredOrders)
+        {
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <strong>Bestelnummer:</strong> @order.Id<br />
+                            <strong>Klant:</strong> @order.CustomerName
+                        </div>
+                        <div>
+                            <strong>Datum:</strong> @order.OrderDate.ToShortDateString()
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @foreach (var line in order.OrderLines)
+                    {
+                        <div class="d-flex justify-content-between border-bottom py-2">
+                            <div>
+                                <strong>@line.Product.Name</strong><br />
+                                <small>@line.Quantity x €@(line.Product.Price.ToString("0.00"))</small>
+                            </div>
+                            <div><strong>&euro;@((line.Quantity * line.Product.Price).ToString("0.00"))</strong></div>
+                        </div>
+                    }
+
+                    <div class="mt-3">
+                        <strong>Totaal:</strong> &euro;@order.TotalPrice.ToString("0.00")
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(order.ShippingAddress))
+                    {
+                        <div class="mt-2">
+                            <strong>Bezorgadres:</strong> @order.ShippingAddress
+                        </div>
+                    }
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <strong>Betaalmethode:</strong> @order.PaymentMethod<br />
+                            <strong>Status:</strong> @order.OrderStatus
+                        </div>
+                        <div>
+                            <strong>Bezorging:</strong> @order.DeliveryMethod
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     }
-}
-else
-{
-    <p><em>Nog geen bestellingen :(</em></p>
-}
+    else
+    {
+        <p><em>Nog geen bestellingen :(</em></p>
+    }
+</body>

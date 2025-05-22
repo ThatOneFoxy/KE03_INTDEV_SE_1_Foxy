@@ -45,7 +45,6 @@ namespace Webshop.Pages.OrderPages
                 return RedirectToPage("/Cart");
             }
 
-            // Simulatie van een klant aangezien ik geen log-in heb
             var customer = _context.Customers.FirstOrDefault(c => c.Name == "Neo");
             if (customer == null)
             {
@@ -56,9 +55,12 @@ namespace Webshop.Pages.OrderPages
             var order = new Order
             {
                 CustomerId = customer.Id,
+                CustomerName = customer.Name,
+                OrderStatus = "In behandeling",
                 OrderDate = DateTime.Now,
                 DeliveryMethod = CheckoutInfo.DeliveryMethod,
                 PaymentMethod = CheckoutInfo.PaymentMethod,
+                ShippingAddress = CheckoutInfo.Address,
                 ShippingCost = CheckoutInfo.DeliveryMethod == "Thuisbezorgd" ? 0.99m : 0m,
                 OrderLines = CartItems.Select(ci => new OrderLine
                 {

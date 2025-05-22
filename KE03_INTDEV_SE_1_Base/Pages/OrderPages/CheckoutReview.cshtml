@@ -4,7 +4,7 @@
     ViewData["Title"] = "Stap 2: Controleer je bestelling";
 }
 
-<h2>Stap 2: Controleer je bestelling</h2>
+<h2 class="mt-3">Stap 2: Controleer je bestelling</h2>
 
 <p><strong>Naam:</strong> @Model.CheckoutInfo.Name</p>
 
@@ -39,5 +39,5 @@
 <h4>Totaal: €@Model.Total.ToString("0.00")</h4>
 
 <form method="post">
-    <button type="submit" class="btn btn-success">Bevestig & Plaats Bestelling</button>
+    <button type="submit" class="btn btn-danger">Bevestig & Plaats Bestelling</button>
 </form>

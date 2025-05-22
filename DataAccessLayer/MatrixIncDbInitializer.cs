@@ -28,37 +28,45 @@ namespace DataAccessLayer
                     new Order
                     {
                         Customer = customers[0],
+                        CustomerName = "Neo",
                         OrderDate = DateTime.Parse("2021-01-01"),
                         DeliveryMethod = "Afhalen",
                         ShippingCost = 4.99m,
                         PaymentMethod = "iDEAL",
+                        OrderStatus = "Verzonden",
                         ShippingAddress = null
                     },
                     new Order
                     {
                         Customer = customers[0],
+                        CustomerName = "Neo",
                         OrderDate = DateTime.Parse("2021-02-01"),
                         DeliveryMethod = "Bezorgen",
                         ShippingCost = 4.99m,
                         PaymentMethod = "Creditcard",
+                        OrderStatus = "In behandeling",
                         ShippingAddress = "123 Elm St"
                     },
                     new Order
                     {
                         Customer = customers[1],
+                        CustomerName = "Morpheus",
                         OrderDate = DateTime.Parse("2021-02-01"),
                         DeliveryMethod = "Afhalen",
                         ShippingCost = 0,
                         PaymentMethod = "iDEAL",
+                        OrderStatus = "Geannuleerd",
                         ShippingAddress = null
                     },
                     new Order
                     {
                         Customer = customers[2],
+                        CustomerName = "Trinity",
                         OrderDate = DateTime.Parse("2021-03-01"),
                         DeliveryMethod = "Afhalen",
                         ShippingCost = 9.99m,
                         PaymentMethod = "PayPal",
+                        OrderStatus = "In behandeling",
                         ShippingAddress = null
                     }
                 };
