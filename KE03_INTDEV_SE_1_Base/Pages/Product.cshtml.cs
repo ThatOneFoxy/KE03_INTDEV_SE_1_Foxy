@@ -42,6 +42,8 @@ namespace Webshop.Pages
             CartCount = cart.Sum(item => item.Quantity);
             ViewData["CartCount"] = CartCount;
 
+            ViewData["PreviousUrl"] = Request.Headers["Referer"].ToString();
+
             return Page();
         }
 

@@ -3,41 +3,74 @@
 @{
     ViewData["Title"] = "Stap 1: Gegevens & Bezorging";
 }
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <h2 class="mt-3">Stap 1: Gegevens & Bezorging</h2>
 
-<h2>Stap 1: Gegevens & Bezorging</h2>
+    <form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
 
-<form method="post">
-    <div class="mb-3">
-        <label class="form-label">Naam</label>
-        <input asp-for="CustomerName" class="form-control" required />
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Adres</label>
-        <input asp-for="CustomerAddress" class="form-control" required />
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Bezorgmethode</label>
-        <select asp-for="DeliveryMethod" class="form-select" required>
-            <option value="" disabled selected>-- Kies een optie --</option>
-            <option value="Thuisbezorgd">Thuisbezorgd (€0.99)</option>
-            <option value="Ophalen">Ophalen (gratis)</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Betaalmethode</label>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="PaymentMethod" value="iDEAL" required />
-            <label class="form-check-label">iDEAL</label>
+        <div class="mb-3">
+            <label class="form-label">Naam</label>
+            <input asp-for="CustomerName" class="form-control" />
+            <span asp-validation-for="CustomerName" class="text-danger"></span>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="PaymentMethod" value="Creditcard" />
-            <label class="form-check-label">Creditcard</label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="PaymentMethod" value="PayPal" />
-            <label class="form-check-label">PayPal</label>
-        </div>
-    </div>
 
-    <button type="submit" class="btn btn-danger">Volgende</button>
-</form>
+        <div class="mb-3" id="addressField">
+            <label class="form-label">Adres</label>
+            <input asp-for="CustomerAddress" class="form-control" id="customerAddressInput" />
+            <span asp-validation-for="CustomerAddress" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Bezorgmethode</label>
+            <select asp-for="DeliveryMethod" class="form-select" id="deliveryMethodSelect">
+                <option value="" disabled selected>-- Kies een optie --</option>
+                <option value="Thuisbezorgd">Thuisbezorgd (€0.99)</option>
+                <option value="Ophalen">Ophalen (gratis)</option>
+            </select>
+            <span asp-validation-for="DeliveryMethod" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Betaalmethode</label>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="PaymentMethod" type="radio" value="iDEAL" />
+                <label class="form-check-label">iDEAL</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="PaymentMethod" type="radio" value="Creditcard" />
+                <label class="form-check-label">Creditcard</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" asp-for="PaymentMethod" type="radio" value="PayPal" />
+                <label class="form-check-label">PayPal</label>
+            </div>
+            <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-danger">Volgende</button>
+    </form>
+</body>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        const deliverySelect = document.getElementById("deliveryMethodSelect");
+        const addressField = document.getElementById("addressField");
+
+        function toggleAddressField() {
+            if (deliverySelect.value === "Ophalen") {
+                addressField.style.display = "none";
+            } else {
+                addressField.style.display = "block";
+            }
+        }
+
+        deliverySelect.addEventListener("change", toggleAddressField);
+        window.addEventListener("DOMContentLoaded", toggleAddressField);
+    </script>
+}

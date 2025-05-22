@@ -5,12 +5,7 @@
 }
 
 <head>
-    <style>
-        .form-check-input:checked {
-            background-color: #DA4040;
-            border-color: #DA4040;
-        }
-    </style>
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <section class="bg-light py-4">
@@ -44,7 +39,7 @@
                         </div>
                     </form>
                 </div>
-            
+
                 <div class="col-md-9">
                     <h2 class="mb-4">@Model.PageTitle</h2>
 
@@ -85,7 +80,10 @@
                                                 <p class="fw-bold mb-1 fs-5">€@product.Price<span class="text-muted fs-6">/stuk</span></p>
                                                 <p class="text-success small mb-2">Op voorraad</p>
 
-                                                <form method="post" asp-page-handler="AddToCart" asp-route-id="@product.Id" class="d-flex align-items-center gap-2">
+                                                <form method="post" asp-page-handler="AddToCart" class="d-flex align-items-center gap-2">
+                                                    <input type="hidden" name="id" value="@product.Id" />
+                                                    <input type="hidden" name="search" value="@Model.Query" />
+                                                    <input type="hidden" name="category" value="@Model.Category" />
                                                     <input type="number" name="quantity" value="1" min="1" class="form-control form-control-sm w-auto" />
                                                     <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center">
                                                         <span class="me-1">+</span> 🛒

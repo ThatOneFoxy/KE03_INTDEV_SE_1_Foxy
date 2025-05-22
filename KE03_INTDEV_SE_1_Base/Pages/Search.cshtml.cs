@@ -63,8 +63,7 @@ namespace Webshop.Pages
             ViewData["CartCount"] = cart.Sum(item => item.Quantity);
         }
 
-
-        public IActionResult OnPostAddToCart(int id, int quantity)
+        public IActionResult OnPostAddToCart(int id, int quantity, string? search, string? category)
         {
             var product = _context.Products.FirstOrDefault(p => p.Id == id);
             if (product == null)
@@ -92,7 +91,7 @@ namespace Webshop.Pages
 
             TempData["ToastMessage"] = $"{quantity}x {product.Name} toegevoegd aan je winkelmandje";
 
-            return RedirectToPage(new { search = Query, category = Category });
+            return RedirectToPage(new { search, category });
         }
     }
 }

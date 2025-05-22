@@ -22,6 +22,11 @@ namespace Webshop.Pages.OrderPages
 
         public IActionResult OnPost()
         {
+            if (DeliveryMethod == "Ophalen")
+            {
+                ModelState.Remove(nameof(CustomerAddress));
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();

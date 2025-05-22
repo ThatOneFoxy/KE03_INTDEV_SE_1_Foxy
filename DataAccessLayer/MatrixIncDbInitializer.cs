@@ -21,15 +21,57 @@ namespace DataAccessLayer
                     new Customer { Name = "Trinity", Address = "789 Pine St", Active = true }
                 };
                 context.Customers.AddRange(customers);
+                context.SaveChanges();
 
                 var orders = new Order[]
                 {
-                    new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-01-01"), DeliveryMethod = "Afhalen", ShippingCost = 4.99m, PaymentMethod = "iDEAL" },
-                    new Order { Customer = customers[0], OrderDate = DateTime.Parse("2021-02-01"), DeliveryMethod = "Bezorgen", ShippingCost = 4.99m, PaymentMethod = "Creditcard" },
-                    new Order { Customer = customers[1], OrderDate = DateTime.Parse("2021-02-01"), DeliveryMethod = "Afhalen", ShippingCost = 0, PaymentMethod = "iDEAL" },
-                    new Order { Customer = customers[2], OrderDate = DateTime.Parse("2021-03-01"), DeliveryMethod = "Drone", ShippingCost = 9.99m, PaymentMethod = "PayPal" }
+                    new Order
+                    {
+                        Customer = customers[0],
+                        CustomerName = "Neo",
+                        OrderDate = DateTime.Parse("2021-01-01"),
+                        DeliveryMethod = "Afhalen",
+                        ShippingCost = 4.99m,
+                        PaymentMethod = "iDEAL",
+                        OrderStatus = "Verzonden",
+                        ShippingAddress = null
+                    },
+                    new Order
+                    {
+                        Customer = customers[0],
+                        CustomerName = "Neo",
+                        OrderDate = DateTime.Parse("2021-02-01"),
+                        DeliveryMethod = "Bezorgen",
+                        ShippingCost = 4.99m,
+                        PaymentMethod = "Creditcard",
+                        OrderStatus = "In behandeling",
+                        ShippingAddress = "123 Elm St"
+                    },
+                    new Order
+                    {
+                        Customer = customers[1],
+                        CustomerName = "Morpheus",
+                        OrderDate = DateTime.Parse("2021-02-01"),
+                        DeliveryMethod = "Afhalen",
+                        ShippingCost = 0,
+                        PaymentMethod = "iDEAL",
+                        OrderStatus = "Geannuleerd",
+                        ShippingAddress = null
+                    },
+                    new Order
+                    {
+                        Customer = customers[2],
+                        CustomerName = "Trinity",
+                        OrderDate = DateTime.Parse("2021-03-01"),
+                        DeliveryMethod = "Afhalen",
+                        ShippingCost = 9.99m,
+                        PaymentMethod = "PayPal",
+                        OrderStatus = "In behandeling",
+                        ShippingAddress = null
+                    }
                 };
                 context.Orders.AddRange(orders);
+                context.SaveChanges();
             }
 
             Category[] categories = Array.Empty<Category>();
@@ -76,6 +118,25 @@ namespace DataAccessLayer
                     }
                 };
                 context.Products.AddRange(products);
+                context.SaveChanges();
+            }
+
+            if (!context.OrderLines.Any())
+            {
+                var orders = context.Orders.ToList();
+                var products = context.Products.ToList();
+
+                var orderLines = new OrderLine[]
+                {
+                    new OrderLine { Order = orders[0], Product = products[0], Quantity = 1 },
+                    new OrderLine { Order = orders[0], Product = products[2], Quantity = 2 },
+                    new OrderLine { Order = orders[1], Product = products[1], Quantity = 1 },
+                    new OrderLine { Order = orders[2], Product = products[1], Quantity = 3 },
+                    new OrderLine { Order = orders[3], Product = products[0], Quantity = 1 },
+                };
+
+                context.OrderLines.AddRange(orderLines);
+                context.SaveChanges();
             }
 
             if (!context.Parts.Any())
