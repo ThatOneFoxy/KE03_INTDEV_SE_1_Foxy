@@ -12,10 +12,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <h5>Filters</h5>
+                    <h5>Filteren op Categorie</h5>
                     <form method="get">
                         <input type="hidden" name="search" value="@Model.Query" />
                         <div class="list-group">
+                            <label class="list-group-item">
+                                <input type="radio" class="form-check-input me-1"
+                                       name="category"
+                                       value=""
+                                @(string.IsNullOrEmpty(Model.Category) ? "checked" : "")
+                                       onchange="this.form.submit();" />
+                                Toon alles
+                            </label>
+
                             @foreach (var category in Model.Categories)
                             {
                                 <label class="list-group-item">
@@ -27,15 +36,6 @@
                                     @category
                                 </label>
                             }
-
-                            <label class="list-group-item">
-                                <input type="radio" class="form-check-input me-1"
-                                       name="category"
-                                       value=""
-                                @(string.IsNullOrEmpty(Model.Category) ? "checked" : "")
-                                       onchange="this.form.submit();" />
-                                Toon alles
-                            </label>
                         </div>
                     </form>
                 </div>
